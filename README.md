@@ -1,194 +1,162 @@
-# Member Management Admin Dashboard
+# Quản Lý Thành Viên FCJ
 
-A Next.js based admin dashboard for member management system.
+Dự án quản lý thành viên FCJ bao gồm hệ thống quản trị viên và API backend.
 
-## Tech Stack
+## 🚀 Tính năng
 
-### Frontend
-- Next.js 14 (App Router)
+- Quản lý thành viên
+- Quản lý sự kiện
+- Quản lý khóa học
+- Dashboard thống kê
+- Xác thực và phân quyền người dùng
+
+## 🛠 Công nghệ sử dụng
+
+### Backend (aptisAPI)
+- NestJS
+- TypeScript
+- Prisma
+- PostgreSQL
+- JWT Authentication
+- Swagger API Documentation
+
+### Frontend (quanLyThanhVienAdmin)
+- Next.js
 - TypeScript
 - Tailwind CSS
-- next/font with Geist font
+- React Query
+- React Hook Form
 
-### Backend
-[Add your backend technologies here]
+## 📦 Cài đặt
 
-### Development Tools
-- ESLint
-- TypeScript
-- npm/yarn/pnpm/bun
+### Yêu cầu hệ thống
+- Node.js >= 18.x
+- PostgreSQL >= 14.x
+- Yarn hoặc npm
 
-## Prerequisites
+### Backend Setup
 
-Before you begin, ensure you have installed:
-- Node.js (latest LTS version)
-- npm, yarn, pnpm, or bun
-- [Add any other prerequisites specific to your project]
-
-## Installation
-
-1. Clone the repository
+1. Cài đặt dependencies:
 ```bash
-git clone [your-repository-url] [[1]](https://stackoverflow.com/questions/62843580)
-cd quanLyThanhVienAdmin
-
-
-Copy
-
-Insert at cursor
-markdown
-Install dependencies
-
-npm install
-# or
+cd aptisAPI
 yarn install
-# or
-pnpm install
-# or
-bun install
+```
 
+2. Cấu hình môi trường:
+```bash
+cp .env.example .env
+```
+Chỉnh sửa các biến môi trường trong file `.env`
 
-Copy
+3. Chạy migrations:
+```bash
+yarn prisma migrate dev
+```
 
-Insert at cursor
-bash
-Environment Setup
-Create a .env.local file in the root directory:
+4. Khởi động server:
+```bash
+yarn start:dev
+```
 
-# Add your environment variables here
+### Frontend Setup
 
+1. Cài đặt dependencies:
+```bash
+cd quanLyThanhVienAdmin
+yarn install
+```
 
-Copy
+2. Cấu hình môi trường:
+```bash
+cp .env.example .env
+```
+Chỉnh sửa các biến môi trường trong file `.env`
 
-Insert at cursor
-env
-Running the Application
-Frontend Development Server
-npm run dev
-# or
+3. Khởi động development server:
+```bash
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
 
+## 📚 API Documentation
 
-Copy
+API documentation có sẵn tại `/swagger` khi chạy backend server.
 
-Insert at cursor
-bash
-The application will be available at http://localhost:3000
+## 🧪 Testing
 
-API Server
-Add your API server setup and running instructions here
+### Backend Tests
+```bash
+cd aptisAPI
+yarn test
+```
 
-# Add your API server start command
+### Frontend Tests
+```bash
+cd quanLyThanhVienAdmin
+yarn test
+```
 
+## 🏗 Cấu trúc dự án
 
-Copy
+### Backend (aptisAPI)
+```
+src/
+├── auth/           # Authentication module
+├── users/          # User management
+├── events/         # Event management
+├── courses/        # Course management
+├── dashboard/      # Dashboard statistics
+├── strategy/       # Authentication strategies
+├── app.module.ts   # Main module
+└── main.ts         # Application entry point
+```
 
-Insert at cursor
-bash
-Project Structure
-├── app/
-│   ├── page.tsx
-│   └── [other app router files]
-├── components/
-├── public/
-└── [other project directories]
+### Frontend (quanLyThanhVienAdmin)
+```
+src/
+├── app/            # Next.js app directory
+│   ├── api/        # API routes
+│   ├── dashboard/  # Dashboard pages
+│   ├── events/     # Event pages
+│   └── users/      # User pages
+├── components/     # Reusable components
+├── services/       # API services
+└── styles/         # Global styles
+```
 
+## 🔒 Security
 
-Copy
+- JWT Authentication
+- Role-based Access Control
+- Input Validation
+- CORS Protection
+- Rate Limiting
 
-Insert at cursor
-API Documentation
-Base URL
-[Add your API base URL]
+## 📈 Performance
 
+- Caching
+- Lazy Loading
+- Code Splitting
+- Database Indexing
+- Query Optimization
 
-Copy
+## 🤝 Contributing
 
-Insert at cursor
-Available Endpoints
-Add your API endpoints and their descriptions
+1. Fork repository
+2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Mở Pull Request
 
-Deployment
-Frontend Deployment
-The easiest way to deploy this Next.js application is using the Vercel Platform:
+## 📝 License
 
-Push your code to GitHub
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Visit Vercel Platform
+## 👥 Authors
 
-Import your repository
+- Hayden - Initial work
 
-Configure environment variables
+## 🙏 Acknowledgments
 
-Deploy
-
-Backend Deployment
-Add your backend deployment instructions
-
-Development Guidelines
-Code Style
-Follow TypeScript best practices
-
-Use the built-in Next.js features for optimization
-
-Follow the established project structure
-
-Git Workflow
-Create a new branch for each feature
-
-git checkout -b feature/your-feature-name
-
-
-Copy
-
-Insert at cursor
-bash
-Commit your changes
-
-Push to your branch
-
-Create a Pull Request
-
-Features
-Add your project's key features
-
-Testing
-# Add your test commands
-
-
-Copy
-
-Insert at cursor
-bash
-Contributing
-Fork the project
-
-Create your feature branch
-
-Commit your changes
-
-Push to the branch
-
-Open a Pull Request
-
-License
-Add your license information
-
-Support
-Add support contact information
-
-
-To complete this README fully:
-1. Add your specific backend technologies and setup instructions
-2. Include your actual API endpoints and documentation
-3. Add any specific environment variables needed
-4. List the key features of your member management system
-5. Include any specific deployment requirements
-6. Add your actual project structure
-7. Include any testing procedures
-
-Would you like me to help you fill in any of these sp
+- NestJS Team
+- Next.js Team
+- All contributors 
