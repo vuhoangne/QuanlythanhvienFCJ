@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model courses {
+  course_id         Int                 @id @default(autoincrement())
+  title             String              @db.VarChar(255)
+  description       String?             @db.Text
+  duration          String?             @db.VarChar(50)
+  instructor        String?             @db.VarChar(255)
+  status            String?             @default("active") @db.VarChar(255)
+  user_certificates user_certificates[]
+  user_feedbacks    user_feedbacks[]
+}
+
+model events {
+  event_id      Int             @id @default(autoincrement())
+  title         String          @db.VarChar(255)
+  event_date    DateTime        @db.Date
+  location      String?         @db.VarChar(255)
+  capacity      Int?
+  description   String?         @db.Text
+  registrations registrations[]
+}
+
+model registrations {
+  registration_id Int     @id @default(autoincrement())
+  user_id         Int?
+  event_id        Int?
+  events          events? @relation(fields: [event_id], references: [event_id], onDelete: Cascade, onUpdate: NoAction, map: "registrations_ibfk_2")
+  users           users?  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "registrations_ibfk_1")
+
+  @@index([event_id], map: "fk_registrations_event")
+  @@index([user_id], map: "fk_registrations_user")
+}
+
+model user_certificates {
+  certificate_id  Int       @id @default(autoincrement())
+  user_id         Int?
+  course_id       Int?
+  issue_date      DateTime? @db.Date
+  certificate_url String?   @db.VarChar(255)
+  courses         courses?  @relation(fields: [course_id], references: [course_id], onDelete: Cascade, onUpdate: NoAction, map: "user_certificates_ibfk_2")
+  users           users?    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "user_certificates_ibfk_1")
+
+  @@index([course_id], map: "fk_user_certificates_course")
+  @@index([user_id], map: "fk_user_certificates_user")
+}
+
+model user_feedbacks {
+  feedback_id   Int       @id @default(autoincrement())
+  user_id       Int?
+  course_id     Int?
+  rating        Int?
+  comment       String?   @db.Text
+  feedback_date DateTime? @db.Date
+  courses       courses?  @relation(fields: [course_id], references: [course_id], onDelete: Cascade, onUpdate: NoAction, map: "user_feedbacks_ibfk_2")
+  users         users?    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "user_feedbacks_ibfk_1")
+
+  @@index([course_id], map: "fk_user_feedbacks_course")
+  @@index([user_id], map: "fk_user_feedbacks_user")
+}
+
+model user_ranks {
+  rank_id   Int     @id @default(autoincrement())
+  user_id   Int?
+  rank_name String? @db.VarChar(255)
+  users     users?  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "user_ranks_ibfk_1")
+
+  @@index([user_id], map: "fk_user_ranks_user")
+}
+
+model user_workshops {
+  workshop_id   Int     @id @default(autoincrement())
+  workshop_name String? @db.VarChar(255)
+  link          String? @db.VarChar(255)
+  user_id       Int?
+  users         users?  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "user_workshops_ibfk_1")
+
+  @@index([user_id], map: "fk_user_workshops_user")
+}
+
+model users {
+  user_id           Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(255)
+  email             String              @unique(map: "email") @db.VarChar(255)
+  password          String              @db.VarChar(255)
+  role              String?             @db.VarChar(50)
+  status            String?             @db.VarChar(255)
+  registrations     registrations[]
+  user_certificates user_certificates[]
+  user_feedbacks    user_feedbacks[]
+  user_ranks        user_ranks[]
+  user_workshops    user_workshops[]
+}
